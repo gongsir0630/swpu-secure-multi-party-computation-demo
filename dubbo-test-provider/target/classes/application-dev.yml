@@ -1,0 +1,58 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://127.0.0.1:3306/dubboUser
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filters: stat,wall,slf4j
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      use-global-data-source-stat: true
+      web-stat-filter:
+        enabled: true
+        url-pattern: "/*"
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+      stat-view-servlet:
+        url-pattern: "/druid/*"
+        allow: 127.0.0.1
+        deny: 192.168.1.73
+        reset-enable: false
+        login-username: root
+        login-password: admin1234
+---
+spring:
+  application:
+    name: dubbo-auto-configuration-provider-demo
+---
+dubbo:
+  application:
+    id: dubbo-user-provider
+    name: user-service-provider
+  config-center:
+    protocol: zookeeper
+    address: zookeeper://172.16.250.42:2181
+  scan:
+    base-packages: cn.edu.swpu.wlzx.provider.service
+  protocol:
+    name: dubbo
+    port: 20881
+---
+spring:
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    show-sql: true
