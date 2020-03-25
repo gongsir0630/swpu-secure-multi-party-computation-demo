@@ -1,6 +1,8 @@
 package cn.edu.swpu.wlzx.consumer.controller;
 
 import io.swagger.annotations.Api;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -11,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "密钥相关接口",value = "维护：龚涛、2020-3-21")
 public class KeyController {
-//    private static final Logger logger = LoggerFactory.getLogger(KeyController.class);
-//
+    private static final Logger logger = LoggerFactory.getLogger(KeyController.class);
+
+    /**
+     * rpc调用 密钥 服务
+     */
 //    @Reference
 //    private UserService userService;
 //
