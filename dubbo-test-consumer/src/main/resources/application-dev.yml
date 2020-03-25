@@ -2,9 +2,40 @@ spring:
   application:
     name: dubbo-auto-configure-consumer-sample
 ---
+### mail邮件配置
+spring:
+  mail:
+    host: smtp.qq.com
+    username: gongsir0630@qq.com
+    password: ufdkyrhsbasmdeca
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            reauired: true
+---
+### redis配置：redis服务器：172.16.250.46
+spring:
+  redis:
+    host: 172.16.250.46
+    port: 6379
+    password: admin1234
+    jedis:
+      pool:
+        max-idle: 8
+        min-idle: 0
+        max-active: 8
+        max-wait: -1
+    timeout: 3000
+---
 dubbo:
   config-center:
     address: zookeeper://172.16.250.42:2181
+  consumer:
+    timeout: 3000
 ---
 server:
   port: 8080
