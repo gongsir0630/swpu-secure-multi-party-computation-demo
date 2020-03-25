@@ -5,7 +5,6 @@
         <artifactId>dubbo-test</artifactId>
         <version>1.0.0</version>
     </parent>
-    <groupId>cn.edu.swpu.wlzx</groupId>
     <artifactId>dubbo-test-provider</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
@@ -22,7 +21,6 @@
         <dependency>
             <groupId>cn.edu.swpu.wlzx</groupId>
             <artifactId>dubbo-test-interface</artifactId>
-            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.dubbo</groupId>
@@ -60,6 +58,7 @@
     </dependencies>
 
     <build>
+        <finalName>dubbo-test-user-provider</finalName>
     <plugins>
         <plugin>
             <groupId>org.springframework.boot</groupId>

@@ -5,7 +5,6 @@
         <artifactId>dubbo-test</artifactId>
         <version>1.0.0</version>
     </parent>
-    <groupId>cn.edu.swpu.wlzx</groupId>
     <artifactId>dubbo-test-consumer</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
@@ -27,7 +26,6 @@
         <dependency>
             <groupId>cn.edu.swpu.wlzx</groupId>
             <artifactId>dubbo-test-interface</artifactId>
-            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.dubbo</groupId>
@@ -117,9 +115,28 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
+        <!--mail starter-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
+        <!--加入Redis缓存-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!--阿里云SDK-->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>4.0.3</version>
+        </dependency>
     </dependencies>
 
     <build>
+        <finalName>dubbo-test</finalName>
     <plugins>
         <plugin>
             <groupId>org.springframework.boot</groupId>

@@ -55,6 +55,12 @@
                 <artifactId>interface_api</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
+            <!-- user api -->
+            <dependency>
+                <groupId>cn.edu.swpu.wlzx</groupId>
+                <artifactId>dubbo-test-interface</artifactId>
+                <version>1.0.0</version>
+            </dependency>
             <!-- Spring Boot -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>

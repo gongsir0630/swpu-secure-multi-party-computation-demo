@@ -5,7 +5,6 @@
         <artifactId>dubbo-test</artifactId>
         <version>1.0.0</version>
     </parent>
-    <groupId>cn.edu.swpu.wlzx</groupId>
     <artifactId>dubbo-test-interface</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
@@ -35,6 +34,19 @@
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
+        </dependency>
+
+        <!-- 字段验证注解 -->
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+
+        <!-- swagger字段注解 -->
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.5.20</version>
         </dependency>
     </dependencies>
 
