@@ -49,18 +49,6 @@
                 <version>1.18.8</version>
                 <scope>provided</scope>
             </dependency>
-            <!-- key api -->
-            <dependency>
-                <groupId>cn.edu.swpu.wxzx</groupId>
-                <artifactId>dubbo-key-interface</artifactId>
-                <version>1.0.0</version>
-            </dependency>
-            <!-- user api -->
-            <dependency>
-                <groupId>cn.edu.swpu.wlzx</groupId>
-                <artifactId>dubbo-test-interface</artifactId>
-                <version>1.0.0</version>
-            </dependency>
             <!-- Spring Boot -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>

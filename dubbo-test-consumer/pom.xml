@@ -21,11 +21,13 @@
         <dependency>
             <groupId>cn.edu.swpu.wxzx</groupId>
             <artifactId>dubbo-key-interface</artifactId>
+            <version>1.0.0</version>
         </dependency>
         <!-- 用户模块 -->
         <dependency>
             <groupId>cn.edu.swpu.wlzx</groupId>
             <artifactId>dubbo-test-interface</artifactId>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.dubbo</groupId>
