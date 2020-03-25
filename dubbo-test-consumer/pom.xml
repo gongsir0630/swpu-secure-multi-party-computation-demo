@@ -20,7 +20,7 @@
         <!-- 密钥依赖 -->
         <dependency>
             <groupId>cn.edu.swpu.wxzx</groupId>
-            <artifactId>interface_api</artifactId>
+            <artifactId>dubbo-key-interface</artifactId>
         </dependency>
         <!-- 用户模块 -->
         <dependency>
