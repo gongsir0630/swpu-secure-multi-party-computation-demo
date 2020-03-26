@@ -13,6 +13,7 @@
         <module>dubbo-test-interface</module>
         <module>dubbo-test-provider</module>
         <module>dubbo-test-consumer</module>
+        <module>dubbo-compute</module>
     </modules>
 
     <!--从网信中心私服下载依赖-->
