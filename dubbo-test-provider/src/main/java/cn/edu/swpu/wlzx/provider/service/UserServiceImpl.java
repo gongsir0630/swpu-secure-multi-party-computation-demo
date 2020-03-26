@@ -1,6 +1,6 @@
 package cn.edu.swpu.wlzx.provider.service;
 
-import cn.edu.swpu.wlzx.api.UserService;
+import cn.edu.swpu.wlzx.api.user.UserService;
 import cn.edu.swpu.wlzx.domain.User;
 import cn.edu.swpu.wlzx.provider.repository.UserRepository;
 import org.apache.dubbo.config.annotation.Service;

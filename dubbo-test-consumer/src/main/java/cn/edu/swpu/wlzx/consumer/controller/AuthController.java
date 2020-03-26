@@ -1,6 +1,6 @@
 package cn.edu.swpu.wlzx.consumer.controller;
 
-import cn.edu.swpu.wlzx.api.UserService;
+import cn.edu.swpu.wlzx.api.user.UserService;
 import cn.edu.swpu.wlzx.consumer.mail.MailService;
 import cn.edu.swpu.wlzx.consumer.common.auth.service.AuthService;
 import cn.edu.swpu.wlzx.consumer.common.utils.IpAddrUtil;

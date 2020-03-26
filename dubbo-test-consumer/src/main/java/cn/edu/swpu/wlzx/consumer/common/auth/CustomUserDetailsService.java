@@ -1,6 +1,6 @@
 package cn.edu.swpu.wlzx.consumer.common.auth;
 
-import cn.edu.swpu.wlzx.api.UserService;
+import cn.edu.swpu.wlzx.api.user.UserService;
 import cn.edu.swpu.wlzx.consumer.exception.MyException;
 import cn.edu.swpu.wlzx.domain.User;
 import org.apache.dubbo.config.annotation.Reference;

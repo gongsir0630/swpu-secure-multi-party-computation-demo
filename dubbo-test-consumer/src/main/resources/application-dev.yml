@@ -1,6 +1,6 @@
 spring:
   application:
-    name: dubbo-auto-configure-consumer-sample
+    name: dubbo-auto-configure-consumer-demo
 ---
 ### mail邮件配置
 spring:
@@ -34,8 +34,15 @@ spring:
 dubbo:
   config-center:
     address: zookeeper://172.16.250.42:2181
+    ### 关闭配置中心启动检查
+    check: false
   consumer:
     timeout: 3000
+  ### 关闭所有服务的启动时检查 (没有提供者时报错)
+    check: false
+  ### 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样
+  application:
+    name: consumer-app
 ---
 server:
   port: 8080

@@ -1,7 +1,7 @@
 package cn.edu.swpu.wlzx.provider.service;
 
 import org.apache.dubbo.config.annotation.Service;
-import cn.edu.swpu.wlzx.api.DemoService;
+import cn.edu.swpu.wlzx.api.user.DemoService;
 import org.apache.dubbo.rpc.RpcContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

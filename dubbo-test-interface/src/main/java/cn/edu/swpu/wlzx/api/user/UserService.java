@@ -1,4 +1,4 @@
-package cn.edu.swpu.wlzx.api;
+package cn.edu.swpu.wlzx.api.user;
 
 import cn.edu.swpu.wlzx.domain.User;
 

@@ -1,6 +1,6 @@
 package cn.edu.swpu.wlzx.consumer.common.auth.service.impl;
 
-import cn.edu.swpu.wlzx.api.UserService;
+import cn.edu.swpu.wlzx.api.user.UserService;
 import cn.edu.swpu.wlzx.consumer.common.auth.AuthUser;
 import cn.edu.swpu.wlzx.consumer.common.auth.service.AuthService;
 import cn.edu.swpu.wlzx.consumer.common.utils.JwtUtil;

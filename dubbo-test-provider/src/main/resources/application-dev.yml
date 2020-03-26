@@ -35,17 +35,24 @@ spring:
 ---
 spring:
   application:
-    name: dubbo-auto-configuration-provider-demo
+    name: dubbo-auto-configuration-provider-user
 ---
 dubbo:
   application:
-    id: dubbo-user-provider
-    name: user-service-provider
+    id: user-app
+    ### 提供方应用信息，用于计算依赖关系
+    name: user-app
+    ### 负责人
+    owner: gongsir
+    organization: swpu-wlzx-5678-studentTeam
+  ### 动态配置中心地址
   config-center:
     protocol: zookeeper
     address: zookeeper://172.16.250.42:2181
+  ### 声明需要暴露的服务接口
   scan:
     base-packages: cn.edu.swpu.wlzx.provider.service
+  ### 使用dubbo协议在20881端口暴露服务
   protocol:
     name: dubbo
     port: 20881

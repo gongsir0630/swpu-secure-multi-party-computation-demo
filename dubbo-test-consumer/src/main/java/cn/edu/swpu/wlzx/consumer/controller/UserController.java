@@ -1,7 +1,7 @@
 package cn.edu.swpu.wlzx.consumer.controller;
 
-import cn.edu.swpu.wlzx.api.DemoService;
-import cn.edu.swpu.wlzx.api.UserService;
+import cn.edu.swpu.wlzx.api.user.DemoService;
+import cn.edu.swpu.wlzx.api.user.UserService;
 import io.swagger.annotations.Api;
 import org.apache.dubbo.config.annotation.Reference;
 import org.slf4j.Logger;
@@ -29,7 +29,7 @@ public class UserController {
 
     @GetMapping("/test/sayHello")
     public String sayHello() {
-        logger.info(demoService.sayHello("Provider"));
-        return demoService.sayHello("Provider");
+        logger.info(demoService.sayHello("gongsir"));
+        return demoService.sayHello("gongsir");
     }
 }
