@@ -2,6 +2,7 @@ package cn.edu.swpu.wlzx.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,6 +17,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "db_algorithm")
 @ApiModel
+@Data
 public class Algorithm implements Serializable {
     /**
      * 算法id
@@ -50,7 +52,7 @@ public class Algorithm implements Serializable {
     /**
      * 模型发布状态
      */
-    @Column(name = "al_status",columnDefinition = "未发布")
+    @Column(name = "al_status")
     @ApiModelProperty("模型发布状态：发布、未发布")
     private String status;
 }
