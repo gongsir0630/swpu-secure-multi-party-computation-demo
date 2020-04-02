@@ -50,9 +50,17 @@ public class Algorithm implements Serializable {
     private String data;
 
     /**
+     * 模型调用链接url
+     */
+    @Column(name = "al_url",unique = true,nullable = false)
+    @ApiModelProperty(value = "模型调用链接（url地址）")
+    @NotNull(message = "url必填")
+    private String url;
+
+    /**
      * 模型发布状态
      */
     @Column(name = "al_status")
-    @ApiModelProperty("模型发布状态：发布、未发布")
+    @ApiModelProperty("模型发布状态：发布(true)、未发布(false)")
     private String status;
 }

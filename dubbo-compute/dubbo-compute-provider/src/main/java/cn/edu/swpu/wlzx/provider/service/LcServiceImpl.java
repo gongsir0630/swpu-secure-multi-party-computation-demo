@@ -122,7 +122,7 @@ public class LcServiceImpl implements LcService {
     /**
      * 筛选字段
      * @param source 源对象
-     * @return 目标字段
+     * @return 空字段
      */
     public static String[] getNullPropertyNames (Object source) {
         final BeanWrapper src = new BeanWrapperImpl(source);

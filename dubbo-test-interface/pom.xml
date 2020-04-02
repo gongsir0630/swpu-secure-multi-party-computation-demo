@@ -31,11 +31,6 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
-        </dependency>
-
         <!-- 字段验证注解 -->
         <dependency>
             <groupId>jakarta.validation</groupId>
