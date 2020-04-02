@@ -35,6 +35,12 @@
             <artifactId>dubbo-test-interface</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <!--政府模块-->
+        <dependency>
+            <groupId>cn.edu.swpu.wxzx</groupId>
+            <artifactId>dubbo-gov-interface</artifactId>
+            <version>1.0.0</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo</artifactId>
