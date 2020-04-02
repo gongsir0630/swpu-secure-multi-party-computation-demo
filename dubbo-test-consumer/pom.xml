@@ -17,6 +17,12 @@
         <dubbo.version>2.7.3</dubbo.version>
     </properties>
     <dependencies>
+        <!-- 算法依赖 -->
+        <dependency>
+            <groupId>cn.edu.swpu.wlzx</groupId>
+            <artifactId>dubbo-compute-interface</artifactId>
+            <version>1.0.0</version>
+        </dependency>
         <!-- 密钥依赖 -->
         <dependency>
             <groupId>cn.edu.swpu.wxzx</groupId>
@@ -134,6 +140,13 @@
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-java-sdk-core</artifactId>
             <version>4.0.3</version>
+        </dependency>
+
+        <!-- 单元测试 -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
