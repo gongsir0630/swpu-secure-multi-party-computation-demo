@@ -19,6 +19,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>cn.edu.swpu.wxzx</groupId>
+            <artifactId>dubbo-key-interface</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
             <groupId>cn.edu.swpu.wlzx</groupId>
             <artifactId>dubbo-compute-interface</artifactId>
             <version>1.0.0</version>

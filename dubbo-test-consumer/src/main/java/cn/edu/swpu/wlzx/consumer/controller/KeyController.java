@@ -3,12 +3,13 @@ package cn.edu.swpu.wlzx.consumer.controller;
 import cn.edu.swpu.wlzx.consumer.common.utils.Result;
 import cn.edu.swpu.wxzx.keys.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.dubbo.config.annotation.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -27,8 +28,21 @@ public class KeyController {
     @Reference(version = "1.0.0")
     private UserService userService;
 
-    @GetMapping("/key/{username}")
-    public ResponseEntity<Result> getPublicKey(@PathVariable("username") String username) {
+    /**
+     * 从认证信息中获取username
+     * @return username
+     */
+    private String  getUsername() {
+        return SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
+    }
+
+    @ApiOperation(value = "用户获取数据加密的公钥")
+    @GetMapping("user/key/")
+    public ResponseEntity<Result> getPublicKey() {
+        final String username = this.getUsername();
         String publicKey = userService.insert(username);
         logger.info("=====>> 用户:{} 获取公钥:{}",username,publicKey);
         Result result = new Result(100,"success");
