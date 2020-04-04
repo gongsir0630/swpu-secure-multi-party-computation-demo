@@ -11,12 +11,10 @@ import org.apache.dubbo.config.annotation.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 
 /**
  * 描述：
@@ -58,6 +56,110 @@ public class GovController {
     @Reference(version = "1.0.0",group = "govB")
     private DataService dataBService;
 
+    private String getUsername() {
+        return SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
+    }
+
+    /**
+     * 用户申请使用数据
+     * @return 申请状态
+     */
+    @ApiOperation(value = "用户申请使用数据",notes = "用户申请，政府审核")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "gov",value = "政府源区分")
+    })
+    @ApiResponses({
+            @ApiResponse(code = 105,message = "已审核"),
+            @ApiResponse(code = 104,message = "审核中"),
+            @ApiResponse(code = 103,message = "审核失败")
+    })
+    @PostMapping("/{gov}/insertApply")
+    public ResponseEntity<Result> insertApply(@PathVariable("gov") String gov){
+        String govA="a",govB="b";
+        String username=this.getUsername();
+        if (gov.equals(govA)){
+            if (govAUserService.insertApply(username)==1){
+                logger.info("=====>申请已审核!!!");
+                return ResponseEntity.ok(new Result(105,"已审核"));
+            }else {
+                logger.info("=====>申请正在审核!!!");
+                return ResponseEntity.ok(new Result(104,"审核中"));
+            }
+        }
+        if (gov.equals(govB)){
+            if (govBUserService.insertApply(username)==0){
+                logger.info("=====>申请正在审核!!!");
+                return ResponseEntity.ok(new Result(104,"审核中"));
+            }else {
+                logger.info("=====>申请已审核!!!");
+                return ResponseEntity.ok(new Result(105,"已审核"));
+            }
+        }
+        return ResponseEntity.ok(new Result(103,"审核失败"));
+    }
+
+    /**
+     * 删除用户申请
+     * @return 删除状态
+     */
+    @ApiOperation(value = "政府删除用户申请",notes = "政府审核，删除申请")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "gov",value = "政府源区分"),
+            @ApiImplicitParam(name = "id",value = "用户申请id")
+    })
+    @ApiResponses({
+            @ApiResponse(code = 100,message = "已删除"),
+            @ApiResponse(code = 101,message = "删除失败")
+    })
+    @DeleteMapping("/{gov}/deleteApply/{id}")
+    public ResponseEntity<Result> deleteApply(@PathVariable("gov") String gov,@PathVariable("id") int id){
+        String govA="a",govB="b";
+        if (gov.equals(govA)){
+            govAUserService.deleteApply(id);
+            logger.info("=====>删除成功!!!");
+            return ResponseEntity.ok(new Result(100,"已删除"));
+        }
+        if (gov.equals(govB)){
+            govBUserService.deleteApply(id);
+            logger.info("=====>删除成功!!!");
+            return ResponseEntity.ok(new Result(100,"已删除"));
+        }
+        return ResponseEntity.ok(new Result(101,"删除失败"));
+    }
+
+    /**
+     * 用户获取数据
+     * @return 数据密文
+     */
+    @ApiOperation(value = "用户获取数据",notes = "用户获取密文数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "gov",value = "政府源区分"),
+            @ApiImplicitParam(name = "publicKey",value = "公钥")
+    })
+    @ApiResponses({
+            @ApiResponse(code = 100,message = "获取成功"),
+            @ApiResponse(code = 101,message = "获取失败")
+    })
+    @PostMapping("/{gov}/applyData/{publicKey}")
+    public ResponseEntity<Result> applyData(@PathVariable("gov") String gov,@PathVariable("publicKey") String publicKey){
+        String govA="a",govB="b";
+        String username=this.getUsername();
+        if (gov.equals(govA)){
+            Result result=new Result(100,"数据获取成功");
+            result.putData("dataA",govAUserService.applyData(username,publicKey));
+            return ResponseEntity.ok(result);
+        }
+        if (gov.equals(govB)){
+            Result result=new Result(100,"数据获取成功");
+            result.putData("dataB",govBUserService.applyData(username,publicKey));
+            return ResponseEntity.ok(result);
+        }
+        return ResponseEntity.ok(new Result(101,"数据获取失败"));
+    }
+
     /**
      *  查询所有用户审批
      * @return 用户信息以及查询结果
@@ -71,16 +173,14 @@ public class GovController {
             @ApiResponse(code = 100,message = "查询成功"),
             @ApiResponse(code = 101,message = "查询失败")
     })
-    @RequestMapping(value = "/allUser",method = RequestMethod.GET)
+    @GetMapping(value = "/allUserApply")
     public  ResponseEntity<Result> selectAllApply(@RequestParam("page") int page,@RequestParam("pageSize") int pageSize){
         List<User> userList1=govAUserService.selectAllApply(page,pageSize);
         List<User> userList2=govBUserService.selectAllApply(page,pageSize);
-        if (userList1.isEmpty()&&userList2.isEmpty()){
-            logger.info("=====>查询失败");
-            return ResponseEntity.ok(new Result(101,"查询失败"));
-        }
         Result result=new Result(100,"查询成功");
         logger.info("=====>查询成功");
+        logger.info("=====>userA:{}",userList1);
+        logger.info("=====>userB:{}",userList2);
         result.putData("userA",userList1);
         result.putData("userB",userList2);
         return ResponseEntity.ok(result);
@@ -99,7 +199,7 @@ public class GovController {
             @ApiResponse(code = 100,message = "审核成功"),
             @ApiResponse(code = 101,message = "审核失败")
     })
-    @RequestMapping(value = "/{gov}/checkApply/{id}",method = RequestMethod.PUT)
+    @PutMapping(value = "/{gov}/checkApply/{id}")
     public ResponseEntity<Result> reviewApplyA(@PathVariable("gov") String gov ,@PathVariable("id") int id){
         String govA="a",govB="b";
         if (gov.equals(govA)){
@@ -130,7 +230,7 @@ public class GovController {
             @ApiResponse(code = 100,message = "插入成功"),
             @ApiResponse(code = 101,message = "插入失败")
     })
-    @PostMapping("/{gov}/insert")
+    @PostMapping("/{gov}/insertData")
     public ResponseEntity<Result> insertDataA(@PathVariable("gov") String gov,@RequestParam("data") String data){
         String govA="a",govB="b";
         if (gov.equals(govA)){
@@ -162,7 +262,7 @@ public class GovController {
             @ApiResponse(code = 100,message = "删除成功"),
             @ApiResponse(code = 101,message = "删除失败")
     })
-    @RequestMapping(value = "/{gov}/delete",method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{gov}/deleteData")
     public ResponseEntity<Result> deleteDataA(@PathVariable("gov") String gov,@RequestParam("id") int id){
         String govA="a",govB="b";
         if (gov.equals(govA)) {
@@ -194,7 +294,7 @@ public class GovController {
             @ApiResponse(code = 100,message = "修改成功"),
             @ApiResponse(code = 101,message = "修改失败")
     })
-    @RequestMapping(value = "/{gov}/update",method = RequestMethod.PUT)
+    @PutMapping(value = "/{gov}/updateData")
     public ResponseEntity<Result> updateDataA(@PathVariable("gov") String gov,Data data){
         String govA="a",govB="b";
         if (gov.equals(govA)){
@@ -226,29 +326,21 @@ public class GovController {
             @ApiResponse(code = 100,message = "查询成功"),
             @ApiResponse(code = 101,message = "查询失败")
     })
-    @RequestMapping(value = "/{gov}/selectAll",method = RequestMethod.GET)
+    @GetMapping(value = "/{gov}/selectAllData")
     public ResponseEntity<Result> selectAllDataA(@PathVariable("gov") String gov,@RequestParam("page") int page,@RequestParam("pageSize") int pageSize){
         String govA="a",govB="b";
         if (gov.equals(govA)){
             List<Data> dataList=dataAService.selectAllData(page,pageSize);
-            if (dataList.isEmpty()){
-                logger.info("=====>查询数据A失败");
-                return ResponseEntity.ok(new Result(101,"查询失败"));
-            }
             Result result=new Result(100,"查询成功");
             result.putData("dataA",dataList);
-            logger.info("=====>查询数据A成功",JSON.toJSONString(dataList));
+            logger.info("=====>查询数据A成功:{}",JSON.toJSONString(dataList));
             return ResponseEntity.ok(result);
         }
         if (gov.equals(govB)){
             List<Data> dataList=dataBService.selectAllData(page,pageSize);
-            if (dataList.isEmpty()){
-                logger.info("=====>查询数据B失败");
-                return ResponseEntity.ok(new Result(101,"查询失败"));
-            }
             Result result=new Result(100,"查询成功");
             result.putData("dataB",dataList);
-            logger.info("=====>查询数据B成功",JSON.toJSONString(dataList));
+            logger.info("=====>查询数据B成功:{}",JSON.toJSONString(dataList));
             return ResponseEntity.ok(result);
         }
         return ResponseEntity.ok(new Result(101,"查询失败"));
