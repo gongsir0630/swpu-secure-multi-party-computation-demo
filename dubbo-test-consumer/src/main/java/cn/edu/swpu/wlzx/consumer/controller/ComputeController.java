@@ -5,6 +5,7 @@ import cn.edu.swpu.wlzx.consumer.common.utils.Result;
 import cn.edu.swpu.wxzx.keys.KeyService;
 import cn.edu.swpu.wxzx.keys.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.dubbo.config.annotation.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,7 @@ public class ComputeController {
                 .getName();
     }
 
+    @ApiOperation(value = "个人授额评估模型")
     @GetMapping(path = "/test1")
     public ResponseEntity<Result> testCompute(String a, String b, String key) {
         Result result = new Result(100,"success");
