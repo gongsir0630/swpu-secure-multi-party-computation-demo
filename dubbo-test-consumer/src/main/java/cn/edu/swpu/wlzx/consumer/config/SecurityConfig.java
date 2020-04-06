@@ -101,7 +101,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 平台需要登录
                 .antMatchers("/user/**").authenticated()
                 // 政府角色
-                .antMatchers("/government/**").hasRole("GOV")
+                .antMatchers("/gov/**").hasRole("GOV")
                 // 浪潮角色
                 .antMatchers("/lc/**").hasRole("LANG")
                 // 平台管理员

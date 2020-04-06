@@ -38,7 +38,6 @@ import java.util.List;
  * 编码不要畏惧变化，要拥抱变化
  */
 @RestController
-@RequestMapping("/gov")
 @Api(tags = "政府数据管理接口",value = "维护：曾文杰 2020-03-28")
 public class GovController {
 
@@ -76,7 +75,7 @@ public class GovController {
             @ApiResponse(code = 104,message = "审核中"),
             @ApiResponse(code = 103,message = "审核失败")
     })
-    @PostMapping("/{gov}/insertApply")
+    @PostMapping("/user/{gov}/insertApply")
     public ResponseEntity<Result> insertApply(@PathVariable("gov") String gov){
         String govA="a",govB="b";
         String username=this.getUsername();
@@ -114,7 +113,7 @@ public class GovController {
             @ApiResponse(code = 100,message = "已删除"),
             @ApiResponse(code = 101,message = "删除失败")
     })
-    @DeleteMapping("/{gov}/deleteApply/{id}")
+    @DeleteMapping("/gov/{gov}/deleteApply/{id}")
     public ResponseEntity<Result> deleteApply(@PathVariable("gov") String gov,@PathVariable("id") int id){
         String govA="a",govB="b";
         if (gov.equals(govA)){
@@ -143,7 +142,7 @@ public class GovController {
             @ApiResponse(code = 100,message = "获取成功"),
             @ApiResponse(code = 101,message = "获取失败")
     })
-    @PostMapping("/{gov}/applyData/{publicKey}")
+    @PostMapping("/user/{gov}/applyData/{publicKey}")
     public ResponseEntity<Result> applyData(@PathVariable("gov") String gov,@PathVariable("publicKey") String publicKey){
         String govA="a",govB="b";
         String username=this.getUsername();
@@ -173,7 +172,7 @@ public class GovController {
             @ApiResponse(code = 100,message = "查询成功"),
             @ApiResponse(code = 101,message = "查询失败")
     })
-    @GetMapping(value = "/allUserApply")
+    @GetMapping(value = "/gov/allUserApply")
     public  ResponseEntity<Result> selectAllApply(@RequestParam("page") int page,@RequestParam("pageSize") int pageSize){
         List<User> userList1=govAUserService.selectAllApply(page,pageSize);
         List<User> userList2=govBUserService.selectAllApply(page,pageSize);
@@ -199,7 +198,7 @@ public class GovController {
             @ApiResponse(code = 100,message = "审核成功"),
             @ApiResponse(code = 101,message = "审核失败")
     })
-    @PutMapping(value = "/{gov}/checkApply/{id}")
+    @PutMapping(value = "/gov/{gov}/checkApply/{id}")
     public ResponseEntity<Result> reviewApplyA(@PathVariable("gov") String gov ,@PathVariable("id") int id){
         String govA="a",govB="b";
         if (gov.equals(govA)){
@@ -230,7 +229,7 @@ public class GovController {
             @ApiResponse(code = 100,message = "插入成功"),
             @ApiResponse(code = 101,message = "插入失败")
     })
-    @PostMapping("/{gov}/insertData")
+    @PostMapping("/gov/{gov}/insertData")
     public ResponseEntity<Result> insertDataA(@PathVariable("gov") String gov,@RequestParam("data") String data){
         String govA="a",govB="b";
         if (gov.equals(govA)){
@@ -262,7 +261,7 @@ public class GovController {
             @ApiResponse(code = 100,message = "删除成功"),
             @ApiResponse(code = 101,message = "删除失败")
     })
-    @DeleteMapping(value = "/{gov}/deleteData")
+    @DeleteMapping(value = "/gov/{gov}/deleteData")
     public ResponseEntity<Result> deleteDataA(@PathVariable("gov") String gov,@RequestParam("id") int id){
         String govA="a",govB="b";
         if (gov.equals(govA)) {
@@ -294,7 +293,7 @@ public class GovController {
             @ApiResponse(code = 100,message = "修改成功"),
             @ApiResponse(code = 101,message = "修改失败")
     })
-    @PutMapping(value = "/{gov}/updateData")
+    @PutMapping(value = "/gov/{gov}/updateData")
     public ResponseEntity<Result> updateDataA(@PathVariable("gov") String gov,Data data){
         String govA="a",govB="b";
         if (gov.equals(govA)){
@@ -326,7 +325,7 @@ public class GovController {
             @ApiResponse(code = 100,message = "查询成功"),
             @ApiResponse(code = 101,message = "查询失败")
     })
-    @GetMapping(value = "/{gov}/selectAllData")
+    @GetMapping(value = "/gov/{gov}/selectAllData")
     public ResponseEntity<Result> selectAllDataA(@PathVariable("gov") String gov,@RequestParam("page") int page,@RequestParam("pageSize") int pageSize){
         String govA="a",govB="b";
         if (gov.equals(govA)){
