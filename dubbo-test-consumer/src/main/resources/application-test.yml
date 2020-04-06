@@ -89,7 +89,7 @@ dubbo:
     name: consumer-app
 ---
 server:
-  port: 8080
+  port: 9090
 ---
 image:
   location: /www/server/dubbo-test/images/

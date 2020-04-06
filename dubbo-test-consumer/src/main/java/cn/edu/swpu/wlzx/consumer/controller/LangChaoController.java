@@ -2,7 +2,6 @@ package cn.edu.swpu.wlzx.consumer.controller;
 
 import cn.edu.swpu.wlzx.api.compute.LcService;
 import cn.edu.swpu.wlzx.consumer.common.utils.MiscUtil;
-import cn.edu.swpu.wlzx.consumer.common.utils.PageUtil;
 import cn.edu.swpu.wlzx.consumer.common.utils.Result;
 import cn.edu.swpu.wlzx.domain.Algorithm;
 import io.swagger.annotations.Api;
@@ -15,8 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * 描述：
@@ -45,7 +42,7 @@ public class LangChaoController {
                                                 @RequestParam(value = "page_size",defaultValue = "5") int pageSize) {
         Result result = new Result(100,"success");
         // 企业用户只能查看已经发布的模型
-        result.putData("list",getList(name,Boolean.TRUE.toString(),pageNum,pageSize));
+        result.putData("list",lcService.findAll(name,Boolean.TRUE.toString()));
         return ResponseEntity.ok(result);
     }
 
@@ -57,7 +54,7 @@ public class LangChaoController {
                                                 @RequestParam(value = "page_size",defaultValue = "5") int pageSize) {
         Result result = new Result(100,"success");
         // 企业用户只能查看已经发布的模型
-        result.putData("list",getList(name,status,pageNum,pageSize));
+        result.putData("list",lcService.findAll(name,status));
         return ResponseEntity.ok(result);
     }
 
@@ -88,18 +85,10 @@ public class LangChaoController {
     public ResponseEntity<Result> updateAlByAdmin(@PathVariable("id") int id,
                                                   Algorithm algorithm) {
         algorithm.setId(id);
-        Optional<Algorithm> al = lcService.updateAl(algorithm);
-        if (al.isPresent()) {
+        Algorithm al = lcService.updateAl(algorithm);
+        if (null != al) {
             return ResponseEntity.ok(new Result(100,"success"));
         }
         return ResponseEntity.ok(new Result(101,"id不正确"));
-    }
-
-    private List<Algorithm> getList(String name,
-                         String status,
-                         int pageNum,
-                         int pageSize) {
-        List<Algorithm> all = lcService.findAll(name, status);
-        return (List<Algorithm>) PageUtil.startPage(all, pageNum, pageSize);
     }
 }

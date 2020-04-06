@@ -3,7 +3,6 @@ package cn.edu.swpu.wlzx.api.compute;
 import cn.edu.swpu.wlzx.domain.Algorithm;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * 浪潮模型管理接口
@@ -36,7 +35,14 @@ public interface LcService {
      * @param id 模型id
      * @return Algorithm
      */
-    Optional<Algorithm> findAlById(Integer id);
+    Algorithm findAlById(Integer id);
+
+    /**
+     * 通过链接匹配
+     * @param url 链接，唯一
+     * @return algorithm
+     */
+    Algorithm findByUrl(String url);
 
     /**
      * 条件查询
@@ -52,5 +58,5 @@ public interface LcService {
      * @param algorithm 模型信息（需要修改的字段字段封装）
      * @return 修改后的Algorithm
      */
-    Optional<Algorithm> updateAl(Algorithm algorithm);
+    Algorithm updateAl(Algorithm algorithm);
 }

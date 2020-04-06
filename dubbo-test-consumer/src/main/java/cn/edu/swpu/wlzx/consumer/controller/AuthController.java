@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +47,11 @@ public class AuthController {
     private MailService mailService;
     @Autowired
     private StringRedisTemplate redisTemplate;
+    /**
+     * 注册密码处理
+     */
+    @Resource
+    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
     @ApiOperation(value = "登录认证")
@@ -163,6 +169,9 @@ public class AuthController {
             return ResponseEntity.ok(new Result(102,"账号已存在"));
         }
         // 账户不存在，进入注册
+        user.setId(null);
+        // 密码处理
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         // 授权登录
         user.setLoginStatus("true");
         // 角色

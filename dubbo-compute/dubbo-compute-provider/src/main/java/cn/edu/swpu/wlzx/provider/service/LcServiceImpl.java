@@ -65,8 +65,21 @@ public class LcServiceImpl implements LcService {
      * @return Algorithm
      */
     @Override
-    public Optional<Algorithm> findAlById(Integer id) {
-        return alRepository.findById(id);
+    public Algorithm findAlById(Integer id) {
+        Optional<Algorithm> optional = alRepository.findById(id);
+        return optional.orElse(null);
+    }
+
+    /**
+     * 通过链接匹配
+     *
+     * @param url 链接，唯一
+     * @return algorithm
+     */
+    @Override
+    public Algorithm findByUrl(String url) {
+        Optional<Algorithm> optional = alRepository.findAlgorithmByUrlEndingWith(url);
+        return optional.orElse(null);
     }
 
     /**
@@ -105,7 +118,7 @@ public class LcServiceImpl implements LcService {
      * @return 修改后的Algorithm
      */
     @Override
-    public Optional<Algorithm> updateAl(Algorithm algorithm) {
+    public Algorithm updateAl(Algorithm algorithm) {
         // 获取数据库实体
         Optional<Algorithm> optional = alRepository.findById(algorithm.getId());
         if (optional.isPresent()) {
@@ -116,7 +129,7 @@ public class LcServiceImpl implements LcService {
             alRepository.save(algorithm1);
             optional = alRepository.findById(algorithm.getId());
         }
-        return optional;
+        return optional.orElse(null);
     }
 
     /**

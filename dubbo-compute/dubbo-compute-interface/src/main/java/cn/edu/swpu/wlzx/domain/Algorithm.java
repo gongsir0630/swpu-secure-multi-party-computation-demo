@@ -19,6 +19,7 @@ import java.io.Serializable;
 @ApiModel
 @Data
 public class Algorithm implements Serializable {
+    private final long serialVersionUID = 1L;
     /**
      * 算法id
      */

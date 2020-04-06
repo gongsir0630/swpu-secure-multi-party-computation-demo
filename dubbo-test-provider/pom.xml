@@ -59,7 +59,7 @@
     </dependencies>
 
     <build>
-        <finalName>dubbo-test-user-provider</finalName>
+        <finalName>user</finalName>
     <plugins>
         <plugin>
             <groupId>org.springframework.boot</groupId>
