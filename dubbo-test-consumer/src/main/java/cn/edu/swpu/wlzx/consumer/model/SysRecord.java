@@ -16,8 +16,6 @@ import java.util.Date;
 @Entity
 @Table(name = "db_consumer")
 public class SysRecord implements Serializable {
-    private final long serialVersionUID = 1L;
-
     /**
      * 主键id
      */
@@ -40,13 +38,13 @@ public class SysRecord implements Serializable {
     /**
      * 计算参数
      */
-    @Column(name = "params",length = 65535)
+    @Column(name = "params",columnDefinition = "text")
     private String params;
 
     /**
      * 计算结果
      */
-    @Column(name = "result",length = 65535)
+    @Column(name = "result",columnDefinition = "text")
     private String result;
 
     /**
