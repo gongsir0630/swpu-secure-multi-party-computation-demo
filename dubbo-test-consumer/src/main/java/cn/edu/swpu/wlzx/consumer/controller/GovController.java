@@ -147,14 +147,24 @@ public class GovController {
         String govA="a",govB="b";
         String username=this.getUsername();
         if (gov.equals(govA)){
-            Result result=new Result(100,"数据获取成功");
-            result.putData("dataA",govAUserService.applyData(username,publicKey));
-            return ResponseEntity.ok(result);
+            if (govAUserService.selectUserStatus(username)==1){
+                Result result=new Result(100,"数据获取成功");
+                result.putData("dataA",govAUserService.applyData(username,publicKey));
+                return ResponseEntity.ok(result);
+            }else {
+                Result result=new Result(102,"等待管理员申请");
+                return ResponseEntity.ok(result);
+            }
         }
         if (gov.equals(govB)){
-            Result result=new Result(100,"数据获取成功");
-            result.putData("dataB",govBUserService.applyData(username,publicKey));
-            return ResponseEntity.ok(result);
+            if (govBUserService.selectUserStatus(username)==1){
+                Result result=new Result(100,"数据获取成功");
+                result.putData("dataB",govBUserService.applyData(username,publicKey));
+                return ResponseEntity.ok(result);
+            }else {
+                Result result=new Result(102,"等待管理员申请");
+                return ResponseEntity.ok(result);
+            }
         }
         return ResponseEntity.ok(new Result(101,"数据获取失败"));
     }
