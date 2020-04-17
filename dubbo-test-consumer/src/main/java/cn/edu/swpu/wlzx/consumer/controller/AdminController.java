@@ -15,7 +15,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 /**
  * 平台管理相关接口：各方用户管理、平台使用记录管理
@@ -42,6 +45,8 @@ public class AdminController {
     @Reference(version = "1.0.0")
     private UserService userService;
 
+    @Resource
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping(path = "record/list")
     @ApiOperation(value = "平台管理员查看整个平台的数据和模型使用记录")
@@ -53,7 +58,7 @@ public class AdminController {
     public ResponseEntity<Result> getAllRecords(@RequestParam(value = "page_num",defaultValue = "1") int pageNum,
                                                 @RequestParam(value = "page_size",defaultValue = "5") int pageSize,
                                                 @RequestParam(value = "username",defaultValue = "") String username) {
-        Page<SysRecord> allRecord = recordService.findAllRecord(pageNum, pageSize, username);
+        Page<SysRecord> allRecord = recordService.findAllRecord(pageNum-1, pageSize, username);
         Result result = new Result(100,"success");
         result.putData("records",allRecord);
         logger.info("查询平台数据和模型使用记录，查询到{}条记录",allRecord.getNumber());
@@ -70,7 +75,7 @@ public class AdminController {
     public ResponseEntity<Result> getAllUsers(@RequestParam(value = "page_num",defaultValue = "1") int pageNum,
                                               @RequestParam(value = "page_size",defaultValue = "5") int pageSize,
                                               @RequestParam(value = "username",defaultValue = "") String username) {
-        Page<User> allUser = userService.findAllUser(pageNum, pageSize, username);
+        Page<User> allUser = userService.findAllUser(pageNum-1, pageSize, username);
         Result result = new Result(100,"success");
         result.putData("users",allUser);
         logger.info("获取用户列表，查询到{}条记录",allUser.getNumber());
@@ -80,6 +85,9 @@ public class AdminController {
     @PostMapping(path = "user")
     @ApiOperation(value = "管理员后台添加用户")
     public ResponseEntity<Result> addUserByAdmin(User user) {
+        user.setId(null);
+        // 密码处理
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         User saveUser = userService.saveUser(user);
         Result result = new Result(100,"用户添加成功");
         result.putData("user",saveUser);
