@@ -101,6 +101,17 @@
                 <artifactId>mysql-connector-java</artifactId>
                 <version>5.1.20</version>
             </dependency>
+            <!--使用kryo序列化传输-->
+            <dependency>
+                <groupId>com.esotericsoftware</groupId>
+                <artifactId>kryo</artifactId>
+                <version>4.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>de.javakaffee</groupId>
+                <artifactId>kryo-serializers</artifactId>
+                <version>0.41</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
