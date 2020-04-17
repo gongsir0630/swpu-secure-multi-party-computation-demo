@@ -53,7 +53,7 @@ dubbo:
     base-packages: cn.edu.swpu.wlzx.provider.service
   protocol:
     name: dubbo
-    port: 2088
+    port: 20881
     serialization: kryo
 ---
 spring:
