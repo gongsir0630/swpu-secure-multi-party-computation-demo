@@ -115,8 +115,8 @@ public class ComputeController {
         record.setUsername(username);
         // 计算所用参数
         record.setParams(JSONObject.toJSONString(params));
-        // 计算密文结果
-        record.setResult(code);
+        // 计算密文结果,明文结果
+        record.setResult("明文结果:"+rs+", 密文结果:"+code);
         // 计算时间
         record.setStartTime(new Date());
         // 存储db
