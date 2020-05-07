@@ -45,8 +45,22 @@ public class AdminController {
     @Reference(version = "1.0.0")
     private UserService userService;
 
+    @Reference(version = "1.0.0")
+    private cn.edu.swpu.wxzx.keys.UserService keyService;
+
     @Resource
     private PasswordEncoder passwordEncoder;
+
+    @GetMapping(path = "/code2Data")
+    @ApiOperation(value = "实时查看密文解密结果")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username",value = "用户账号"),
+            @ApiImplicitParam(name = "key",value = "当次秘钥"),
+            @ApiImplicitParam(name = "code",value = "密文code"),
+    })
+    public String code2Data(String username,String key, String code) {
+        return "明文数据:" + keyService.decode(username,code,key);
+    }
 
     @GetMapping(path = "record/list")
     @ApiOperation(value = "平台管理员查看整个平台的数据和模型使用记录")
