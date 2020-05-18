@@ -183,15 +183,14 @@ public class GovController {
             @ApiResponse(code = 101,message = "查询失败")
     })
     @GetMapping(value = "/gov/allUserApply")
-    public  ResponseEntity<Result> selectAllApply(@RequestParam("page") int page,@RequestParam("pageSize") int pageSize){
-        List<User> userList1=govAUserService.selectAllApply(page,pageSize);
-        List<User> userList2=govBUserService.selectAllApply(page,pageSize);
+    public  ResponseEntity<Result> selectAllApply(@RequestParam(value = "page",defaultValue = "1") int page,
+                                                  @RequestParam(value = "pageSize",defaultValue = "5") int pageSize){
         Result result=new Result(100,"查询成功");
         logger.info("=====>查询成功");
-        logger.info("=====>userA:{}",userList1);
-        logger.info("=====>userB:{}",userList2);
-        result.putData("userA",userList1);
-        result.putData("userB",userList2);
+        logger.info("=====>userA:{}",govAUserService.selectAllApply(page,pageSize));
+        logger.info("=====>userB:{}", govBUserService.selectAllApply(page,pageSize));
+        result.putData("userA",govAUserService.selectAllApply(page,pageSize));
+        result.putData("userB", govBUserService.selectAllApply(page,pageSize));
         return ResponseEntity.ok(result);
     }
 
@@ -336,20 +335,20 @@ public class GovController {
             @ApiResponse(code = 101,message = "查询失败")
     })
     @GetMapping(value = "/gov/{gov}/selectAllData")
-    public ResponseEntity<Result> selectAllDataA(@PathVariable("gov") String gov,@RequestParam("page") int page,@RequestParam("pageSize") int pageSize){
+    public ResponseEntity<Result> selectAllDataA(@PathVariable("gov") String gov,
+                                                 @RequestParam(value = "page",defaultValue = "1") int page,
+                                                 @RequestParam(value = "pageSize",defaultValue = "5") int pageSize){
         String govA="a",govB="b";
         if (gov.equals(govA)){
-            List<Data> dataList=dataAService.selectAllData(page,pageSize);
             Result result=new Result(100,"查询成功");
-            result.putData("dataA",dataList);
-            logger.info("=====>查询数据A成功:{}",JSON.toJSONString(dataList));
+            result.putData("dataA",dataAService.selectAllData(page,pageSize));
+            logger.info("=====>查询数据A成功:{}",JSON.toJSONString(dataAService.selectAllData(page,pageSize)));
             return ResponseEntity.ok(result);
         }
         if (gov.equals(govB)){
-            List<Data> dataList=dataBService.selectAllData(page,pageSize);
             Result result=new Result(100,"查询成功");
-            result.putData("dataB",dataList);
-            logger.info("=====>查询数据B成功:{}",JSON.toJSONString(dataList));
+            result.putData("dataB",dataBService.selectAllData(page,pageSize));
+            logger.info("=====>查询数据B成功:{}",JSON.toJSONString(dataBService.selectAllData(page,pageSize)));
             return ResponseEntity.ok(result);
         }
         return ResponseEntity.ok(new Result(101,"查询失败"));
