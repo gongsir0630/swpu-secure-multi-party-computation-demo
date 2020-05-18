@@ -118,6 +118,8 @@ public class AdminController {
     @PutMapping(path = "user")
     @ApiOperation(value = "管理员后台更新用户")
     public ResponseEntity<Result> updateUserByAdmin(User user) {
+        // 对密码进行加密处理
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         User updateUser = userService.updateUser(user);
         Result result = new Result(100,"用户更新成功");
         result.putData("user",updateUser);
